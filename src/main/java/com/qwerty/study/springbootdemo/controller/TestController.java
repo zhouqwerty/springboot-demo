@@ -1,12 +1,18 @@
 package com.qwerty.study.springbootdemo.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+
 @RestController
 @RequestMapping("/test")
 public class TestController {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Value("${com.qwerty.title}")
     private String title;
@@ -14,7 +20,9 @@ public class TestController {
     private String name;
 
     @RequestMapping("/test1")
+//    @Cacheable(value = "test4")
     public String test1(){
+        logger.info("当前是/test/test1请求的日志");
         System.out.println(name);
         return "Hello World";
     }
