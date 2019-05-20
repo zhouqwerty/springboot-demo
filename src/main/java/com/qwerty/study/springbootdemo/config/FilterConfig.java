@@ -4,10 +4,9 @@ import com.qwerty.study.springbootdemo.filter.TestFilter1;
 import com.qwerty.study.springbootdemo.filter.TestFilter2;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
-@Configuration
-public class FilterConfiguration {
+//@Configuration
+public class FilterConfig {
 
 
     /*像这种直接返回Filter的方法，就是使用Filter的默认配置*/

@@ -13,7 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>springboot-demo</name>
 	<description>Demo project for Spring Boot</description>
-
+	<packaging>war</packaging>
 	<properties>
 		<java.version>1.8</java.version>
 		<oracle.driver.version>14</oracle.driver.version>
@@ -35,11 +35,11 @@
 		</dependency>
 
         <!--spring-boot-mybatis依赖-->
-		<!--<dependency>
+		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>2.0.1</version>
-		</dependency>-->
+			<version>2.0.0</version>
+		</dependency>
 
 		<!--jpa-->
 		<dependency>
@@ -52,30 +52,53 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis -->
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-redis</artifactId>
-			<version>2.1.6.RELEASE</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/io.lettuce/lettuce-core -->
-		<dependency>
-			<groupId>io.lettuce</groupId>
-			<artifactId>lettuce-core</artifactId>
-			<version>5.1.6.RELEASE</version>
-		</dependency>
-
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-pool2</artifactId>
 		</dependency>
+		<!--spring session共享方案（基于redis）-->
+		<dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session-data-redis</artifactId>
+		</dependency>
+		<!--RabbitMQ-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+
+		<!--邮件服务-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<!--shiro-->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+
+		<!--MongoDB-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+
+		<!--自动添加set get-->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.10</version>
+		</dependency>
 
         <!--mysql驱动-->
-		<!--<dependency>
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
-		</dependency>-->
+		</dependency>
 
 		<!-- oracle 驱动 -->
 		<!--<dependency>
@@ -83,14 +106,6 @@
 			<artifactId>ojdbc14</artifactId>
 			<version>${ojdbc14.version}</version>
 		</dependency>-->
-
-		<!-- oracle数据库的驱动包-->
-		<!--<dependency>
-			<groupId>ojdbc</groupId>
-			<artifactId>ojdbc</artifactId>
-			<version>${oracle.driver.version}</version>
-		</dependency>-->
-
 
         <!--支持热部署-->
 		<dependency>
@@ -115,6 +130,18 @@
 			<artifactId>vue</artifactId>
 			<version>2.5.16</version>
 		</dependency>
+
+		<!-- ________________________________外部jar包_____________________________________ -->
+
+		<!--oracle驱动-->
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc</artifactId>
+			<version>6</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/lib/ojdbc6.jar</systemPath>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -125,9 +152,48 @@
                 <configuration>
 					<!--支持热部署-->
                     <fork>true</fork>
+					<includeSystemScope>true</includeSystemScope>
+					<executable>true</executable>
                 </configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>src/main/resources/lib</directory>
+							<targetPath>WEB-INF/lib/</targetPath>
+							<includes>
+								<include>**/*.jar</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
 			</plugin>
 		</plugins>
+
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
 
 </project>

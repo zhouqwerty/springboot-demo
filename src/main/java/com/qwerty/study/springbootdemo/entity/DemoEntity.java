@@ -2,9 +2,13 @@ package com.qwerty.study.springbootdemo.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
+
 
 @Entity
 public class DemoEntity implements Serializable {
@@ -49,5 +53,15 @@ public class DemoEntity implements Serializable {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        return "DemoEntity{" +
+                "pid='" + pid + '\'' +
+                ", name='" + name + '\'' +
+                ", time=" + time +
+                ", time2=" + time2 +
+                '}';
     }
 }

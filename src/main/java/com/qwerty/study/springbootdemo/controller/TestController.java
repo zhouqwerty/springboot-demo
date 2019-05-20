@@ -3,9 +3,12 @@ package com.qwerty.study.springbootdemo.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+import java.util.UUID;
 
 
 @RestController
@@ -20,17 +23,28 @@ public class TestController {
     private String name;
 
     @RequestMapping("/test1")
-//    @Cacheable(value = "test4")
+    @Cacheable(value = "test11")
     public String test1(){
         logger.info("当前是/test/test1请求的日志");
         System.out.println(name);
-        return "Hello World";
+        return "12356666";
     }
 
     @RequestMapping("/test2")
-    public String test2(){
+    @Cacheable(value = "test123")
+    public String testqwe(){
+        System.out.println("222");
         return name+":"+title;
     }
 
-
+    @RequestMapping("/uid")
+    public String testRedisSession(HttpSession session){
+        UUID uid=(UUID)session.getAttribute("uid");
+        if(uid==null){
+            uid=UUID.randomUUID();
+        }
+        System.out.println(uid);
+        session.setAttribute("uid",uid);
+        return session.getId();
+    }
 }

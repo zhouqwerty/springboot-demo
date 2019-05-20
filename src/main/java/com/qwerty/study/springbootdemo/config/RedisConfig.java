@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import java.lang.reflect.Method;
 /**
-*暂时不知道其作用
+* 缓存的配置
 * */
 @Configuration
 @EnableCaching
