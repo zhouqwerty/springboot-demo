@@ -1,5 +1,6 @@
 package com.qwerty.study.springbootdemo.controller;
 
+import com.qwerty.study.springbootdemo.entity.DemoEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.UUID;
 
 
@@ -44,6 +46,15 @@ public class TestController {
             throw new Exception();
         }
         return "12356666";
+    }
+
+    @RequestMapping("/test4")
+    public DemoEntity test4() throws Exception{
+        DemoEntity demo=new DemoEntity();
+        demo.setPid("1");
+        demo.setName("2");
+        demo.setTime(new Date());
+        return demo;
     }
 
     @RequestMapping("/uid")
