@@ -37,6 +37,15 @@ public class TestController {
         return name+":"+title;
     }
 
+    @RequestMapping("/test3")
+    public String test3() throws Exception{
+        boolean flag=true;
+        if(flag){
+            throw new Exception();
+        }
+        return "12356666";
+    }
+
     @RequestMapping("/uid")
     public String testRedisSession(HttpSession session){
         UUID uid=(UUID)session.getAttribute("uid");
