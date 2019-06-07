@@ -7,6 +7,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -20,6 +21,7 @@ public class OracleDataSourceConfig {
    //配置数据源
     @Bean(name = "oracleDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.oracle")
+    @RefreshScope
 //    @primary这个注解是当spring容器中有两个相同的type（或是同时继承了某个父类）的bean，
 // 选出一个优先级最高的bean作为主要的
     @Primary

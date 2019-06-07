@@ -2,7 +2,6 @@ package com.qwerty.study.springbootdemo.dao;
 
 import com.qwerty.study.springbootdemo.dao.mysql.PeopleDao;
 import com.qwerty.study.springbootdemo.dao.oracle.UserDao;
-import com.qwerty.study.springbootdemo.entity.DemoEntity;
 import com.qwerty.study.springbootdemo.entity.mysql.People;
 import com.qwerty.study.springbootdemo.entity.oracle.Users;
 import org.junit.Test;
@@ -16,23 +15,25 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class User2RepositoryTests {
 
     @Autowired
-    private DemoRepository demoRepository;
-    @Autowired
     private UserDao userDao;
     @Autowired
     private PeopleDao peopleDao;
-    @Test
-    public void test() throws Exception {
-        DemoEntity demo1=new DemoEntity();
-        demo1.setName("测试"+Math.random());
-        demoRepository.save(demo1);
-    }
+
     @Test
     public void testMybatis() throws Exception {
         Users u=new Users();
         u.setName("123");
         u.setPassword("123");
         userDao.addUser(u);
+        People p=new People();
+        p.setName("123");
+        p.setPassword("123");
+        peopleDao.addPeople(p);
+//        System.out.println( userDao.queryUser());
+    }
+
+    @Test
+    public void testMybatis2() throws Exception {
         People p=new People();
         p.setName("123");
         p.setPassword("123");
